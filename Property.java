@@ -44,7 +44,7 @@ public class Property {
      * @param description The new description. Must not be null.
      */
     public void setDescription(String description) {
-
+        this.description = description;
     }
 
     /**
@@ -60,7 +60,9 @@ public class Property {
      * @param price The new price. Must not be negative.
      */
     public void setPrice(double price) {
-
+        if(price >= 0){
+            this.price = price;
+        }
     }
 
     @Override

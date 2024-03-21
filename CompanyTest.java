@@ -12,13 +12,15 @@ import org.junit.jupiter.api.Test;
  */
 public class CompanyTest
 {
-    Company company;
-    User client1;
-    User client2;
-    User seller1;
-    User seller2;
-    Property property1;
-    Property property2;
+    private Company company;
+    private User client1;
+    private User client2;
+    private User seller1;
+    private User seller2;
+    private Property property1;
+    private Property property2;
+    private Sell sell1;
+    private Sell sell2;
     /**
      * Default constructor for test class CompanyTest
      */
@@ -41,6 +43,8 @@ public class CompanyTest
         seller2 = new User("Rodrigo Rodrigues", "966777152", "roro@remax.pt");
         property1 = new Property("T3 Monte Belo", 150000.0);
         property2 = new Property("T1 Monte Belo", 80000.0);
+        sell1 = new Sell(client1, seller1, property1);
+        sell2 = new Sell(client2, seller2, property2);
     }
 
     /**
@@ -125,5 +129,33 @@ public class CompanyTest
     @Test
     public void testRegisterPropertyNull(){
         assertFalse(company.registerProperty(null));
-    }    
+    }
+
+    @Test
+    public void testCreateSell(){
+        company.registerClient(client1);
+        company.registerSeller(seller1);
+        company.registerProperty(property1);
+        assertTrue(company.createSell(client1, seller1, property1));
+    }
+
+    @Test
+    public void testCalculateSellsOfTheYear(){
+        company.registerSell(sell1);
+        company.registerSell(sell2);
+        assertEquals(2, company.calculateSellsOfTheYear(2024));
+    }
+
+    @Test
+    public void testFindSellerOfTheYear(){
+        company.registerClient(client1);
+        company.registerSeller(seller1);
+        company.registerProperty(property1);
+        company.registerClient(client2);
+        company.registerSeller(seller2);
+        company.registerProperty(property2);
+        company.registerSell(sell1);
+        company.registerSell(sell2);
+        assertEquals("Fernando Fernandes", company.findSellerOfTheYear(2024));
+    }
 }

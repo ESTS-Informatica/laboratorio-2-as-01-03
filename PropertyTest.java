@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
  */
 public class PropertyTest
 {
-    Property property1;
+    private Property property1;
 
     /**
      * Default constructor for test class PropertyTest
